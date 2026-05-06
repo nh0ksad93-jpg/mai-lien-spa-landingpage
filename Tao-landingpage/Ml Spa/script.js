@@ -25,36 +25,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Simple Form Submission (Mock)
+    // Form Submission to Backend
     const form = document.getElementById('contact-form');
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = form.querySelector('.btn-submit');
             const originalText = btn.innerText;
-            
+
             btn.innerText = 'Đang gửi...';
             btn.disabled = true;
 
-            // Simulate API call
-            setTimeout(() => {
+            const customerName = document.getElementById('customer-name').value;
+            const customerPhone = document.getElementById('customer-phone').value;
+            const customerService = document.getElementById('customer-service').value;
+
+            // Link Google Apps Script Web App (Thay thế bằng link thực tế sau khi Deploy)
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTWBiiHz-Np8uNaesvyeSW0RyoGxLFk96addXM9lB2esCwzHJm3gBuK06MI1OcpHYm/exec';
+
+            const formData = new FormData();
+            formData.append('name', customerName);
+            formData.append('phone', customerPhone);
+            formData.append('service', customerService);
+
+            try {
+                // Với Google Apps Script, phải dùng mode: 'no-cors' để tránh lỗi, hoặc gửi dạng FormData
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // Vì Google Apps Script trả về CORS mập mờ khi dùng fetch thông thường từ client
+                // Thường chúng ta sẽ mặc định là thành công nếu fetch không ném ra lỗi mạng
                 alert('Cảm ơn bạn đã đăng ký! Đội ngũ SeoulSpa.Vn sẽ liên hệ với bạn sớm nhất.');
                 form.reset();
+
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('Không thể kết nối đến máy chủ. Vui lòng thử lại sau.');
+            } finally {
                 btn.innerText = originalText;
                 btn.disabled = false;
-            }, 1500);
+            }
         });
     }
 
     // Animation on scroll (Simple Reveal)
     const revealElements = document.querySelectorAll('.service-card, .section-title, .intro-text, .intro-image');
-    
+
     const reveal = () => {
         revealElements.forEach(el => {
             const windowHeight = window.innerHeight;
             const elementTop = el.getBoundingClientRect().top;
             const elementVisible = 150;
-            
+
             if (elementTop < windowHeight - elementVisible) {
                 el.style.opacity = '1';
                 el.style.transform = 'translateY(0)';
@@ -88,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showNotification() {
         const randomBooking = bookingData[Math.floor(Math.random() * bookingData.length)];
-        
+
         notifName.innerText = randomBooking.name;
         notifService.innerText = randomBooking.service;
         notifTime.innerText = randomBooking.time;
@@ -110,26 +134,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightbox = document.getElementById('image-lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const closeBtn = document.querySelector('.lightbox-close');
-    
+
     // Select images that should be zoomable
     const zoomableImages = document.querySelectorAll('.service-img-slider img, .intro-image img, .aftercare-img img');
-    
+
     zoomableImages.forEach(img => {
         img.style.cursor = 'zoom-in';
-        img.addEventListener('click', function() {
-            if(lightbox) {
+        img.addEventListener('click', function () {
+            if (lightbox) {
                 lightbox.classList.add('show');
                 lightboxImg.src = this.src;
             }
         });
     });
-    
+
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
             lightbox.classList.remove('show');
         });
     }
-    
+
     if (lightbox) {
         lightbox.addEventListener('click', (e) => {
             if (e.target !== lightboxImg) {
