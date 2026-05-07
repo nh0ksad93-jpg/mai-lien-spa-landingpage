@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const customerPhone = document.getElementById('customer-phone').value;
             const customerService = document.getElementById('customer-service').value;
 
-            // Link Google Apps Script Web App (Link mới nhất của anh Thành)
-            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwNJxpvNFKPoIokx7PAZrQs4mxt_61-YmGHtsbxHZ59mM9OcWoS8AwFw7i4rpPonHg6/exec';
+            // Link Google Apps Script Web App (Phiên bản có thông báo Email)
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyr-HGJeyh-6IX_WVC1CHDaMKrxifa8HAonerKIga6cM1ESdVI0jekAkhuiRAjmgxiY/exec';
 
             console.log("==> Bắt đầu gửi dữ liệu anh Thành nhé...");
 
