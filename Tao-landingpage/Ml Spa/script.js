@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const customerPhone = document.getElementById('customer-phone').value;
             const customerService = document.getElementById('customer-service').value;
 
-            // Link Google Apps Script Web App (Phiên bản v2 - Có báo lỗi Mail vào Sheet)
-            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyDEqNxdhHf4fRvebiu0-vLT_4AQ2OwlE5NAO-BuD-bVCUODqHLO6tq_UMMfDQFqX_r/exec';
+            // Link Google Apps Script Web App (Phiên bản v3 - Chính thức có báo Mail)
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2badqKEXMCmeIbIIne_rNnTEpv0OU3QnwhzPMYWQzpi9qWu26egBDqFh4rY-Com7o/exec';
 
             console.log("==> Bắt đầu gửi dữ liệu anh Thành nhé...");
 
