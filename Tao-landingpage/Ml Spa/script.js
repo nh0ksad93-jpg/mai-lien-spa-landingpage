@@ -43,26 +43,33 @@ document.addEventListener('DOMContentLoaded', () => {
             // Link Google Apps Script Web App (Thay thế bằng link thực tế sau khi Deploy)
             const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTWBiiHz-Np8uNaesvyeSW0RyoGxLFk96addXM9lB2esCwzHJm3gBuK06MI1OcpHYm/exec';
 
-            const formData = new FormData();
-            formData.append('name', customerName);
-            formData.append('phone', customerPhone);
-            formData.append('service', customerService);
+            console.log("==> Bắt đầu gửi dữ liệu anh Thành nhé...");
+            
+            // Chuyển sang dùng URLSearchParams để GAS nhận diện được e.parameter
+            const params = new URLSearchParams();
+            params.append('name', customerName);
+            params.append('phone', customerPhone);
+            params.append('service', customerService);
 
             try {
-                // Với Google Apps Script, phải dùng mode: 'no-cors' để tránh lỗi, hoặc gửi dạng FormData
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                console.log("==> Đang gọi fetch tới Google Script...");
+                // Sử dụng mode: 'no-cors' là bắt buộc khi gửi đến Google Apps Script từ trình duyệt
+                await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    body: formData
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: params
                 });
 
-                // Vì Google Apps Script trả về CORS mập mờ khi dùng fetch thông thường từ client
-                // Thường chúng ta sẽ mặc định là thành công nếu fetch không ném ra lỗi mạng
-                alert('Cảm ơn bạn đã đăng ký! Đội ngũ SeoulSpa.Vn sẽ liên hệ với bạn sớm nhất.');
+                console.log("==> Đã gửi xong (vì dùng no-cors nên mình mặc định là thành công nếu không có lỗi mạng).");
+                alert('Cảm ơn anh Thành! Yêu cầu của anh đã được gửi đi thành công.');
                 form.reset();
 
             } catch (error) {
-                console.error('Error submitting form:', error);
-                alert('Không thể kết nối đến máy chủ. Vui lòng thử lại sau.');
+                console.error('==> LỖI CỰC NẶNG:', error);
+                alert('Có lỗi kết nối. Anh Thành vui lòng kiểm tra lại mạng hoặc cấu hình Script.');
             } finally {
                 btn.innerText = originalText;
                 btn.disabled = false;
