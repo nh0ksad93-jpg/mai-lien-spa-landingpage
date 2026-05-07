@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const customerService = document.getElementById('customer-service').value;
 
             // Link Google Apps Script Web App (Thay thế bằng link thực tế sau khi Deploy)
-            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTWBiiHz-Np8uNaesvyeSW0RyoGxLFk96addXM9lB2esCwzHJm3gBuK06MI1OcpHYm/exec';
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxvvgbtoCTGNubKvxnWrWcBbvuOvEB9JpDwYDGqJ7tovbauIm49td-A0JK3WoGrPI_X/exec';
 
             console.log("==> Bắt đầu gửi dữ liệu anh Thành nhé...");
-            
+
             // Chuyển sang dùng URLSearchParams để GAS nhận diện được e.parameter
             const params = new URLSearchParams();
             params.append('name', customerName);
